@@ -1,3 +1,4 @@
+
 import 'pages.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,18 +13,20 @@ class HomePage extends StatelessWidget {
     return  Scaffold(
       appBar: AppBar(
         title: const Text('Peliculas'),
-        leading: IconButton(icon: const Icon(Icons.search), onPressed: () { },)
+        leading: IconButton(icon: const Icon(Icons.search), onPressed: () {},)
       ),
-      body:Container(
-        color: Colors.red,
-        child: Column(
-          children: const <Widget> [
-             CardSwiper(),
-             //SliderHorizontal....
-                        
-          ],
-        ),
+      body: Column(
+        children: const <Widget>[
+
+          // vertical Swiper...
+          CardSwiper(),
+
+          // horizontal slider...
+          MovieSlider()
+          
+        ],
       )
+      
     );
   }
 

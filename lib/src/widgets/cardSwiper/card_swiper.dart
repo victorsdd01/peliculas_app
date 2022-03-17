@@ -1,5 +1,4 @@
 
-import 'package:flutter/material.dart';
 import 'package:peliculas_app/src/pages/pages.dart';
 
 class CardSwiper extends StatelessWidget {
@@ -11,8 +10,7 @@ class CardSwiper extends StatelessWidget {
 
     final size = MediaQuery.of(context).size;
 
-    return  Scaffold(
-      body:Container(
+    return Container(
         color:Colors.black87,
         height: size.height/2,
         width: double.infinity,
@@ -33,7 +31,6 @@ class CardSwiper extends StatelessWidget {
             ),
           ),
         ),
-      )
-    );
+      );
   }
 }

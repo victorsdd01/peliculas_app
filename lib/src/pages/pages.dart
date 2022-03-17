@@ -1,4 +1,4 @@
-//--------- material package-------
+//--------- material package---------
 
 export 'package:flutter/material.dart';
 
@@ -6,7 +6,7 @@ export 'package:flutter/material.dart';
 
 export 'package:lottie/lottie.dart';
 
-//------------Themes----------------
+//------------Themes-----------------
 
 export 'package:peliculas_app/src/themes/theme.dart';
 
