@@ -43,7 +43,7 @@ class _moviePosters extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: size.height * 0.20,
+      height: size.height * 0.25,
       //color: Colors.red[200],
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
