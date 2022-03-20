@@ -1,5 +1,3 @@
-
-
 import '../../pages/pages.dart';
 
 class MovieSlider extends StatelessWidget {
@@ -10,10 +8,11 @@ class MovieSlider extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      decoration:  BoxDecoration(
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(15.0),topRight: Radius.circular(15.0)),
-        color: Colors.blueGrey[100]
-      ),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(15.0),
+                topRight: Radius.circular(15.0)),
+            color: Colors.blueGrey[100]),
         width: double.infinity,
         height: size.height * 1,
         child: Column(
@@ -35,12 +34,11 @@ class MovieSlider extends StatelessWidget {
 class _moviePosters extends StatelessWidget {
   const _moviePosters({
     Key? key,
-    required this.size, 
-    
+    required this.size,
   }) : super(key: key);
 
   final Size size;
-  
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -48,27 +46,27 @@ class _moviePosters extends StatelessWidget {
       height: size.height * 0.20,
       //color: Colors.red[200],
       child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 21,
-          itemBuilder: (_, int index) => Container(
-            //color: Colors.green[300],
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.0),color: Colors.green),
-            width: 110,
-            margin: const EdgeInsets.only(right:20,top:10.0,bottom: 10.0),
-            child: Column(
-             children: const <Widget>[
-              FadeInImage(
-                image:  NetworkImage('https://via.placeholder.com/300x400'), 
-                placeholder:  AssetImage('assets/images/video-camera.png'),
-                fadeInDuration: Duration(milliseconds: 2500),
-                fit: BoxFit.cover
+        scrollDirection: Axis.horizontal,
+        itemCount: 21,
+        itemBuilder: (_, int index) => Column(
+          children: [
+            Container(
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
               ),
-              Text('movie name')
-             ],
+              width: 110,
+              margin: const EdgeInsets.only(right: 20, top: 10.0, bottom: 10.0),
+              child: const FadeInImage(
+                  image: NetworkImage('https://via.placeholder.com/300x400'),
+                  placeholder: AssetImage('assets/images/video-camera.png'),
+                  fadeInDuration: Duration(milliseconds: 2500),
+                  fit: BoxFit.cover),
             ),
-           ),
-          ),
+            const Text('movie name')
+          ],
+        ),
+      ),
     );
   }
 }
