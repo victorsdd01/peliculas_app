@@ -1,8 +1,5 @@
 
 import '../../pages/pages.dart';
-
-import 'package:flutter/material.dart';
-
 class MovieSlider extends StatelessWidget {
    
   const MovieSlider({Key? key}) : super(key: key);
@@ -12,11 +9,19 @@ class MovieSlider extends StatelessWidget {
 
     final size= MediaQuery.of(context).size;
 
-    return Expanded(
-      child: Container(
-        width: double.infinity,
-        height: size.height* 1,
-        color: Colors.amber,
+    return Container(
+      width: double.infinity,
+      height: size.height* 1,
+      color: Colors.amber,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:const <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+            child: Text('populares'),
+          )
+        ],
       )
     );
   }

@@ -23,4 +23,3 @@ export 'package:card_swiper/card_swiper.dart';
 export 'package:peliculas_app/src/pages/details_page.dart';
 export 'package:peliculas_app/src/pages/error%20pages/not_found_page.dart';
 export 'package:peliculas_app/src/pages/home_page.dart';
-export 'package:peliculas_app/src/widgets/slider/movie_slider.dart';

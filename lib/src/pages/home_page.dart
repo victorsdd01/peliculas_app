@@ -15,16 +15,18 @@ class HomePage extends StatelessWidget {
         title: const Text('Peliculas'),
         leading: IconButton(icon: const Icon(Icons.search), onPressed: () {},)
       ),
-      body: Column(
-        children: const <Widget>[
-
-          // vertical Swiper...
-          CardSwiper(),
-
-          // horizontal slider...
-          MovieSlider()
-          
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: const <Widget>[
+        
+            // vertical Swiper...
+            CardSwiper(),
+        
+            // horizontal slider...
+            MovieSlider()
+            
+          ],
+        ),
       )
       
     );
