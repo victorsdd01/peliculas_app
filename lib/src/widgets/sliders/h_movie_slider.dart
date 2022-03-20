@@ -48,23 +48,22 @@ class _moviePosters extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: 21,
-        itemBuilder: (_, int index) => Column(
-          children: [
-            Container(
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              width: 110,
-              margin: const EdgeInsets.only(right: 20, top: 10.0, bottom: 10.0),
-              child: const FadeInImage(
+        itemBuilder: (_, int index) => Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          width: 110,
+          margin: const EdgeInsets.only(right: 20, top: 10.0, bottom: 10.0),
+          child: Column(
+            children: const <Widget>[
+               FadeInImage(
                   image: NetworkImage('https://via.placeholder.com/300x400'),
                   placeholder: AssetImage('assets/images/video-camera.png'),
                   fadeInDuration: Duration(milliseconds: 2500),
                   fit: BoxFit.cover),
-            ),
-            const Text('movie name')
-          ],
+            ],
+          ),
         ),
       ),
     );
