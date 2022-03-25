@@ -25,14 +25,22 @@ class MovieSlider extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            _moviePosters(size: size),
+            _MoviePosters(size: size),
+            const Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child:  Text('Mas vistas', style: TextStyle(fontSize: 20)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top:10.0),
+              child: _MoviePosters(size: size),
+            )
           ],
         ));
   }
 }
 
-class _moviePosters extends StatelessWidget {
-  const _moviePosters({
+class _MoviePosters extends StatelessWidget {
+  const _MoviePosters({
     Key? key,
     required this.size,
   }) : super(key: key);
@@ -41,31 +49,47 @@ class _moviePosters extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: size.height * 0.25,
-      //color: Colors.red[200],
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 21,
-        itemBuilder: (_, int index) => Container(
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          width: 110,
-          margin: const EdgeInsets.only(right: 20, top: 10.0, bottom: 10.0),
-          child: Column(
-            children: const <Widget>[
-               FadeInImage(
-                  image: NetworkImage('https://via.placeholder.com/300x400'),
-                  placeholder: AssetImage('assets/images/video-camera.png'),
-                  fadeInDuration: Duration(milliseconds: 2500),
-                  fit: BoxFit.cover),
-            ],
+    return Column(
+      children: [
+        SizedBox(
+          width: size.width,
+          height: size.height*0.30,
+          //color: Colors.red,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 21,
+            itemBuilder: (_, int index) => Column(
+              children: [
+                GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, 'detailsPage', arguments:''),
+                  child: Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      //color: Colors.amber
+                    ),
+                    width: 110,
+                    margin: const EdgeInsets.only(right: 20, top: 10.0, bottom: 10.0),
+                    child: const FadeInImage(
+                       image: NetworkImage('https://via.placeholder.com/300x400'),
+                       placeholder: AssetImage('assets/images/video-camera.png'),
+                       fadeInDuration: Duration(milliseconds: 2500),
+                       fit: BoxFit.cover),
+                  ),
+                ),
+                Expanded(
+                  child:Container(
+                    //color: Colors.amber,
+                    margin: const EdgeInsets.only(right: 20,bottom: 5.0),
+                    width: size.width*0.25,
+                    child: const Text('Ut eiusmod ex esse sunt ad duis enim ad ex.',overflow: TextOverflow.ellipsis,maxLines: 2,),
+                  )
+                )
+              ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'src/pages/pages.dart';
- 
+
 void main() {
   runApp(const MyApp());
 }

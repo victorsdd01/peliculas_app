@@ -18,13 +18,10 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: const <Widget>[
-        
             // vertical Swiper...
-            CardSwiper(),
-        
+             CardSwiper(),
             // horizontal slider...
-            MovieSlider()
-            
+             MovieSlider(), 
           ],
         ),
       )
