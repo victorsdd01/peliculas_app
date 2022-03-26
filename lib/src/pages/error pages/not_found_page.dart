@@ -9,7 +9,7 @@ class ErrorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       body: Center(
-         child:Container(
+         child:SizedBox(
            width: double.infinity,
            height: 350,
            child:Lottie.asset('assets/json/error.json')

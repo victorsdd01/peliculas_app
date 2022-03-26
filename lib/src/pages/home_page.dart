@@ -8,9 +8,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final size = MediaQuery.of(context).size;
+    //final size = MediaQuery.of(context).size;
 
     return  Scaffold(
+      backgroundColor: const Color.fromARGB(255, 32, 32, 32),
       appBar: AppBar(
         title: const Text('Peliculas'),
         leading: IconButton(icon: const Icon(Icons.search), onPressed: () {},)
