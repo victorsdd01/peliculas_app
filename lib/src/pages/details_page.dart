@@ -5,7 +5,9 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final String movie = ModalRoute.of(context)?.settings.arguments.toString() ?? 'no movie';
+
+    final String movie = ModalRoute.of(context)?.settings.arguments.toString() ?? 'no movie';
+    
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -26,12 +28,15 @@ class DetailsPage extends StatelessWidget {
                     height: size.height,
                     child: Column(
                       children: <Widget>[
+
                         _MovieTitle(size: size),
+
                         _MovieCategory(size: size),
-                        const SizedBox(
-                          height: 30,
-                        ),
+
+                        const SizedBox(height: 30,),
+
                         _MovieDesription(size: size,),
+
                         Container(
                           margin: const EdgeInsets.only(top: 15),
                           //color: Colors.blueAccent,
@@ -41,27 +46,9 @@ class DetailsPage extends StatelessWidget {
                             style: TextStyle(color: Colors.white, fontSize: 25),
                           ),
                         ),
-                        Container(
-                            margin: const EdgeInsets.only(top: 10.0),
-                            width: size.width,
-                            height: size.height * 0.25,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 10,
-                                itemBuilder: (context, index) => Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    width: size.width * 0.35,
-                                    clipBehavior: Clip.antiAlias,
-                                    margin: const EdgeInsets.all(10),
-                                    child: const FadeInImage(
-                                      image: NetworkImage(
-                                          'https://via.placeholder.com/300x400'),
-                                      placeholder: AssetImage(
-                                          'assets/gif/loading-colour.gif'),
-                                      fit: BoxFit.cover,
-                                    ))))
+                        
+                        _SimilarMovies(size: size)
+
                       ],
                     ),
                   ),
@@ -72,6 +59,40 @@ class DetailsPage extends StatelessWidget {
         ]))
       ]),
     );
+  }
+}
+
+class _SimilarMovies extends StatelessWidget {
+  const _SimilarMovies({
+    Key? key,
+    required this.size,
+  }) : super(key: key);
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: const EdgeInsets.only(top: 10.0),
+        width: size.width,
+        height: size.height * 0.25,
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 10,
+            itemBuilder: (context, index) => Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                width: size.width * 0.35,
+                clipBehavior: Clip.antiAlias,
+                margin: const EdgeInsets.all(10),
+                child: const FadeInImage(
+                  image: NetworkImage(
+                      'https://via.placeholder.com/300x400'),
+                  placeholder: AssetImage(
+                      'assets/gif/loading-colour.gif'),
+                  fit: BoxFit.cover,
+                ))));
   }
 }
 
