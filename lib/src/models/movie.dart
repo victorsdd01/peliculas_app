@@ -33,7 +33,7 @@ class Movie {
   double voteAverage;
   int voteCount;
 
-  get fullImage => posterPath != null ? 'https://image.tmdb.org/t/p/original${posterPath}' :  'https://via.placeholder.com/300x400';
+  get fullImage => posterPath != null ? 'https://image.tmdb.org/t/p/original$posterPath' :  'https://via.placeholder.com/300x400';
 
   factory Movie.fromJson(String str) => Movie.fromMap(json.decode(str));
 

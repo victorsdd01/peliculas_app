@@ -1,14 +1,16 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:peliculas_app/src/providers/movie_provider.dart';
 import 'package:provider/provider.dart';
 import 'src/pages/pages.dart';
 
 void main() {
-  runApp(AppState());
+  runApp(const AppState());
 }
 
 class AppState extends StatelessWidget {
+  const AppState({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
