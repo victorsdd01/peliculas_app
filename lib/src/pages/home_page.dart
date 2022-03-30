@@ -7,10 +7,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final moviesProvider         = Provider.of<MoviesProvider>(context);
-    final popularMoviesProvider  = Provider.of<PopularMoviesProvider>(context);
-    final mostViewedMovies       = Provider.of<MostViewedMovieprovider>(context);
-
+    final moviesProvider = Provider.of<MoviesProvider>(context);
+  
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 32, 32, 32),
         appBar: AppBar(
@@ -26,8 +24,8 @@ class HomePage extends StatelessWidget {
               CardSwiper(movies: moviesProvider.onDisplaymovies,),
               // horizontal slider...
               MovieSlider(
-                popularMovies   : popularMoviesProvider.pMovies, 
-                mostViewedMovies: mostViewedMovies.mostViewedMovies,
+                popularMovies   : moviesProvider.pMovies, 
+                mostViewedMovies: moviesProvider.mostViewedMovies,
                 
               ),
             ],

@@ -2,7 +2,6 @@
 
 import 'package:peliculas_app/src/models/arguments/arguments.dart';
 import 'package:peliculas_app/src/models/models.dart';
-
 import '../../pages/pages.dart';
 
 class MovieSlider extends StatelessWidget {
@@ -40,7 +39,7 @@ class MovieSlider extends StatelessWidget {
                 style: TextStyle(fontSize: 20, color: whiteColor),
               ),
             ),
-            MoviePosters(
+            PopularMovies(
               size: size,
               color: whiteColor,
               movies: popularMovies,
@@ -65,8 +64,8 @@ class MovieSlider extends StatelessWidget {
   }
 }
 
-class MoviePosters extends StatelessWidget {
-  const MoviePosters({
+class PopularMovies extends StatelessWidget {
+  const PopularMovies({
     Key? key,
     required this.size,
     this.color,
