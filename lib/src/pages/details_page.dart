@@ -6,7 +6,7 @@ class DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String movie = ModalRoute.of(context)?.settings.arguments.toString() ?? 'no movie';
+    //final String movie = ModalRoute.of(context)?.settings.arguments.toString() ?? 'no movie';
     
     final size = MediaQuery.of(context).size;
 

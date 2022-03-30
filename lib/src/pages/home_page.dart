@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
 
     final moviesProvider         = Provider.of<MoviesProvider>(context);
     final popularMoviesProvider  = Provider.of<PopularMoviesProvider>(context);
+    final mostViewedMovies       = Provider.of<MostViewedMovieprovider>(context);
 
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 32, 32, 32),
@@ -24,7 +25,11 @@ class HomePage extends StatelessWidget {
               // vertical Swiper...
               CardSwiper(movies: moviesProvider.onDisplaymovies,),
               // horizontal slider...
-              MovieSlider(pMovies: popularMoviesProvider.pMovies,),
+              MovieSlider(
+                popularMovies   : popularMoviesProvider.pMovies, 
+                mostViewedMovies: mostViewedMovies.mostViewedMovies,
+                
+              ),
             ],
           ),
         ));
