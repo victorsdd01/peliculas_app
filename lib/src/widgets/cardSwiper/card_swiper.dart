@@ -1,4 +1,4 @@
-import 'package:peliculas_app/src/models/movie.dart';
+import 'package:peliculas_app/src/models/movies/movie.dart';
 import 'package:peliculas_app/src/pages/pages.dart';
 
 class CardSwiper extends StatelessWidget {

@@ -1,7 +1,5 @@
 
-
-import 'package:peliculas_app/src/providers/movie_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:peliculas_app/src/providers/providers.dart';
 import 'src/pages/pages.dart';
 
 void main() {
@@ -15,7 +13,8 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: ( _ )=>MoviesProvider(),lazy: false,),
+        ChangeNotifierProvider(create: ( _ ) => MoviesProvider(),lazy: false,),
+        ChangeNotifierProvider(create: ( _ ) => PopularMoviesProvider(),lazy: false,),
       ],
       child:const MyApp(),
     );

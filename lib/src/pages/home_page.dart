@@ -1,6 +1,4 @@
-import 'package:peliculas_app/src/providers/movie_provider.dart';
-import 'package:provider/provider.dart';
-
+import '../providers/providers.dart';
 import 'pages.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,12 +7,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final moviesProvider = Provider.of<MoviesProvider>(context);
+    final moviesProvider         = Provider.of<MoviesProvider>(context);
+    final popularMoviesProvider  = Provider.of<PopularMoviesProvider>(context);
 
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 32, 32, 32),
         appBar: AppBar(
-            title: const Text('Peliculas'),
+            title: const Text('Cartelera'),
             leading: IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {},
@@ -25,7 +24,7 @@ class HomePage extends StatelessWidget {
               // vertical Swiper...
               CardSwiper(movies: moviesProvider.onDisplaymovies,),
               // horizontal slider...
-              const MovieSlider(),
+              MovieSlider(pMovies: popularMoviesProvider.pMovies,),
             ],
           ),
         ));

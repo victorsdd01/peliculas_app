@@ -38,19 +38,19 @@ class Movie {
   factory Movie.fromJson(String str) => Movie.fromMap(json.decode(str));
 
   factory Movie.fromMap(Map<String, dynamic> json) => Movie(
-        adult: json["adult"],
-        backdropPath: json["backdrop_path"],
-        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"],
+        adult           : json["adult"],
+        backdropPath    : json["backdrop_path"],
+        genreIds        : List<int>.from(json["genre_ids"].map((x) => x)),
+        id              : json["id"],
         originalLanguage: json["original_language"],
-        originalTitle: json["original_title"],
-        overview: json["overview"],
-        popularity: json["popularity"].toDouble(),
-        posterPath: json["poster_path"],
-        releaseDate: json["release_date"],
-        title: json["title"],
-        video: json["video"],
-        voteAverage: json["vote_average"].toDouble(),
-        voteCount: json["vote_count"],
+        originalTitle   : json["original_title"],
+        overview        : json["overview"],
+        popularity      : json["popularity"].toDouble(),
+        posterPath      : json["poster_path"],
+        releaseDate     : json["release_date"],
+        title           : json["title"],
+        video           : json["video"],
+        voteAverage     : json["vote_average"].toDouble(),
+        voteCount       : json["vote_count"],
       );
 }

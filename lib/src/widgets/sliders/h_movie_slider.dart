@@ -1,7 +1,11 @@
+import 'package:peliculas_app/src/models/models.dart';
+
 import '../../pages/pages.dart';
 
 class MovieSlider extends StatelessWidget {
-  const MovieSlider({Key? key}) : super(key: key);
+  const MovieSlider({Key? key, required this.pMovies}) : super(key: key);
+
+  final List<PopularMovies> pMovies;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,11 @@ class MovieSlider extends StatelessWidget {
                 style: TextStyle(fontSize: 20, color: whiteColor),
               ),
             ),
-            MoviePosters(size: size,color: whiteColor,),
+            MoviePosters(
+              size: size,
+              color: whiteColor,
+              movies: pMovies,
+            ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               child: Text('Mas vistas',
@@ -36,7 +44,11 @@ class MovieSlider extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
-              child: MoviePosters(size: size,color: whiteColor,),
+              child: MoviePosters(
+                size: size,
+                color: whiteColor,
+                movies: pMovies,
+              ),
             )
           ],
         ));
@@ -46,12 +58,14 @@ class MovieSlider extends StatelessWidget {
 class MoviePosters extends StatelessWidget {
   const MoviePosters({
     Key? key,
-    required this.size, 
+    required this.size,
     this.color,
+    required this.movies,
   }) : super(key: key);
 
   final Size size;
   final Color? color;
+  final List<PopularMovies> movies;
 
   @override
   Widget build(BuildContext context) {
@@ -63,44 +77,45 @@ class MoviePosters extends StatelessWidget {
           //color: Colors.red,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 21,
-            itemBuilder: (_, int index) => Column(
-              children: [
-                GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, 'detailsPage',
-                      arguments: 'movie-instance 2'),
-                  child: Container(
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      //color: Colors.amber
-                    ),
-                    width: 110,
-                    margin: const EdgeInsets.only(
-                        right: 20, top: 10.0, bottom: 10.0),
-                    child: const FadeInImage(
-                        image:
-                            NetworkImage('https://via.placeholder.com/300x400'),
-                        placeholder:
-                            AssetImage('assets/images/video-camera.png'),
-                        fadeInDuration: Duration(milliseconds: 2500),
-                        fit: BoxFit.cover),
-                  ),
-                ),
-                Expanded(
+            itemCount: movies.length,
+            itemBuilder: (_, int index) {
+              final popularMovies = movies[index];
+
+              return Column(
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, 'detailsPage',
+                        arguments: 'movie-instance 2'),
                     child: Container(
-                  //color: Colors.amber,
-                  margin: const EdgeInsets.only(right: 20, bottom: 5.0),
-                  width: size.width * 0.25,
-                  child:  Text(
-                    'Ut eiusmod ex esse sunt ad duis enim ad ex.',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    style: TextStyle(color: color),
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        //color: Colors.amber
+                      ),
+                      width: 110,
+                      margin: const EdgeInsets.only(
+                          right: 20, top: 10.0, bottom: 10.0),
+                      child:  FadeInImage(
+                          image: NetworkImage(popularMovies.fullUrl),
+                          placeholder: const AssetImage('assets/images/video-camera.png'),
+                          //fadeInDuration: Duration(milliseconds: 2500),
+                          fit: BoxFit.cover),
+                    ),
                   ),
-                ))
-              ],
-            ),
+                  Expanded(
+                      child: Container(
+                    //color: Colors.amber,
+                    margin: const EdgeInsets.only(right: 20, bottom: 5.0),
+                    width: size.width * 0.25,
+                    child: Text(popularMovies.title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: TextStyle(color: color),
+                    ),
+                  ))
+                ],
+              );
+            },
           ),
         ),
       ],
