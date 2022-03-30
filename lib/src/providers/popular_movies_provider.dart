@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class PopularMoviesProvider extends ChangeNotifier {
 
   
-  List<PopularMovies> pMovies = [];
+  List<Movie> pMovies = [];
 
   PopularMoviesProvider() {
     getPopularMovies();

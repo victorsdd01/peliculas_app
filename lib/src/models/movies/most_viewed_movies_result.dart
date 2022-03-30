@@ -3,7 +3,7 @@ import '../models.dart';
 
 class MostViewedMoviesResult {
   int page;
-  List<MViewedMovies> results;
+  List<Movie> results;
   int totalPages;
   int totalResults;
 
@@ -19,7 +19,7 @@ class MostViewedMoviesResult {
 
   factory MostViewedMoviesResult.fromMap(Map<String,dynamic> data) => MostViewedMoviesResult(
     page        : data["page"], 
-    results     : List<MViewedMovies>.from(data["results"].map((x)=> MViewedMovies.fromMap(x))), 
+    results     : List<Movie>.from(data["results"].map((x)=> Movie.fromMap(x))), 
     totalPages  : data["total_pages"], 
     totalResults: data["total_results"], 
   );

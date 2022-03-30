@@ -1,3 +1,4 @@
+import 'package:peliculas_app/src/models/arguments/arguments.dart';
 import 'package:peliculas_app/src/pages/pages.dart';
 
 class DetailsPage extends StatelessWidget {
@@ -5,9 +6,6 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    //final String movie = ModalRoute.of(context)?.settings.arguments.toString() ?? 'no movie';
-    
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -23,20 +21,18 @@ class DetailsPage extends StatelessWidget {
               Column(
                 children: <Widget>[
                   SizedBox(
-                    //color: Colors.amber,
                     width: size.width,
                     height: size.height,
                     child: Column(
                       children: <Widget>[
-
                         _MovieTitle(size: size),
-
                         _MovieCategory(size: size),
-
-                        const SizedBox(height: 30,),
-
-                        _MovieDesription(size: size,),
-
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        _MovieDesription(
+                          size: size,
+                        ),
                         Container(
                           margin: const EdgeInsets.only(top: 15),
                           //color: Colors.blueAccent,
@@ -46,9 +42,7 @@ class DetailsPage extends StatelessWidget {
                             style: TextStyle(color: Colors.white, fontSize: 25),
                           ),
                         ),
-                        
                         _SimilarMovies(size: size)
-
                       ],
                     ),
                   ),
@@ -87,10 +81,8 @@ class _SimilarMovies extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 margin: const EdgeInsets.all(10),
                 child: const FadeInImage(
-                  image: NetworkImage(
-                      'https://via.placeholder.com/300x400'),
-                  placeholder: AssetImage(
-                      'assets/gif/loading-colour.gif'),
+                  image: NetworkImage('https://via.placeholder.com/300x400'),
+                  placeholder: AssetImage('assets/gif/loading-colour.gif'),
                   fit: BoxFit.cover,
                 ))));
   }
@@ -98,7 +90,7 @@ class _SimilarMovies extends StatelessWidget {
 
 class _MovieDesription extends StatelessWidget {
   const _MovieDesription({
-    Key? key, 
+    Key? key,
     required this.size,
   }) : super(key: key);
 
@@ -179,14 +171,14 @@ class _MovieTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Container(
         color: Colors.black,
         width: size.width,
         height: size.height * 0.06,
-        child: const Text(
-            'Veniam aute velit proident officia culpa eu velit dolor voluptate incididunt ad quis sint consectetur.',
+        child: Text('movie.title',
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 30, color: Colors.white)));
+            style: const TextStyle(fontSize: 30, color: Colors.white)));
   }
 }
 
@@ -196,7 +188,7 @@ class _SliverAppBar extends StatelessWidget {
     required this.size,
   }) : super(key: key);
 
-  final size;
+  final Size size;
 
   @override
   Widget build(BuildContext context) {

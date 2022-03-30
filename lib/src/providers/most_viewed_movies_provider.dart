@@ -8,7 +8,7 @@ class MostViewedMovieprovider extends ChangeNotifier {
   String apiKey = MoviesProvider.apiKeu;
   String language = MoviesProvider.languaje;
 
-  List<MViewedMovies> mostViewedMovies = [];
+  List<Movie> mostViewedMovies = [];
 
   MostViewedMovieprovider() {
     getMostViewedMoviwes();

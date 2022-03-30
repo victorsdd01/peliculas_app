@@ -1,3 +1,6 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:peliculas_app/src/models/arguments/arguments.dart';
 import 'package:peliculas_app/src/models/models.dart';
 
 import '../../pages/pages.dart';
@@ -9,8 +12,8 @@ class MovieSlider extends StatelessWidget {
     required this.mostViewedMovies,
   }) : super(key: key);
 
-  final List<PopularMovies> popularMovies;
-  final List<MViewedMovies> mostViewedMovies;
+  final List<Movie> popularMovies;
+  final List<Movie> mostViewedMovies;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +55,10 @@ class MovieSlider extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: MostViewedMovies(
-                  size: size, mostViewedMovies: mostViewedMovies),
+                size: size,
+                mostViewedMovies: mostViewedMovies,
+                color: whiteColor,
+              ),
             )
           ],
         ));
@@ -69,7 +75,7 @@ class MoviePosters extends StatelessWidget {
 
   final Size size;
   final Color? color;
-  final List<PopularMovies> movies;
+  final List<Movie> movies;
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +89,14 @@ class MoviePosters extends StatelessWidget {
             itemCount: movies.length,
             itemBuilder: (_, int index) {
               final popularMovies = movies[index];
+              final title         = popularMovies.title;
+              final overview      = popularMovies.overview;
 
               return Column(
                 children: [
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(context, 'detailsPage',
-                        arguments: 'movie-instance 2'),
+                        arguments: Arguments(title: title, description: overview)),
                     child: Container(
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
@@ -99,7 +107,7 @@ class MoviePosters extends StatelessWidget {
                       margin: const EdgeInsets.only(
                           right: 20, top: 10.0, bottom: 10.0),
                       child: FadeInImage(
-                          image: NetworkImage(popularMovies.fullUrl),
+                          image: NetworkImage(popularMovies.fullImage),
                           placeholder: const AssetImage(
                               'assets/images/video-camera.png'),
                           fit: BoxFit.cover),
@@ -136,7 +144,7 @@ class MostViewedMovies extends StatelessWidget {
 
   final Size size;
   final Color? color;
-  final List<MViewedMovies> mostViewedMovies;
+  final List<Movie> mostViewedMovies;
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +173,7 @@ class MostViewedMovies extends StatelessWidget {
                       margin: const EdgeInsets.only(
                           right: 20, top: 10.0, bottom: 10.0),
                       child: FadeInImage(
-                          image: NetworkImage(MostViewedMovies.fullPoster),
+                          image: NetworkImage(MostViewedMovies.fullImage),
                           placeholder: const AssetImage(
                               'assets/images/video-camera.png'),
                           fit: BoxFit.cover),
