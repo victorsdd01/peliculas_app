@@ -1,6 +1,4 @@
 // ignore_for_file: non_constant_identifier_names
-
-import 'package:peliculas_app/src/models/arguments/arguments.dart';
 import 'package:peliculas_app/src/models/models.dart';
 import '../../pages/pages.dart';
 
@@ -8,11 +6,13 @@ class MovieSlider extends StatelessWidget {
   const MovieSlider({
     Key? key,
     required this.popularMovies,
-    required this.mostViewedMovies,
+    required this.mostViewedMovies, 
+    required this.onNextPage,
   }) : super(key: key);
 
   final List<Movie> popularMovies;
   final List<Movie> mostViewedMovies;
+  final Function onNextPage;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +43,7 @@ class MovieSlider extends StatelessWidget {
               size: size,
               color: whiteColor,
               movies: popularMovies,
+              onNextPage: onNextPage,
             ),
 
             // aqui van las peliculas mas vistas!!!
@@ -64,38 +65,65 @@ class MovieSlider extends StatelessWidget {
   }
 }
 
-class PopularMovies extends StatelessWidget {
+class PopularMovies extends StatefulWidget {
   const PopularMovies({
     Key? key,
     required this.size,
     this.color,
     required this.movies,
+    required this.onNextPage,
   }) : super(key: key);
 
   final Size size;
   final Color? color;
   final List<Movie> movies;
+  final Function onNextPage;
+
+  @override
+  State<PopularMovies> createState() => _PopularMoviesState();
+}
+
+class _PopularMoviesState extends State<PopularMovies> {
+  final ScrollController controller = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      if (controller.position.pixels >= controller.position.maxScrollExtent-500) {
+        widget.onNextPage();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(
-          width: size.width,
-          height: size.height * 0.30,
+          width: widget.size.width,
+          height: widget.size.height * 0.30,
           child: ListView.builder(
+            controller: controller,
             scrollDirection: Axis.horizontal,
-            itemCount: movies.length,
+            itemCount: widget.movies.length,
             itemBuilder: (_, int index) {
-              final popularMovies = movies[index];
-              final title         = popularMovies.title;
-              final overview      = popularMovies.overview;
+              final popularMovies = widget.movies[index];
+              final title = popularMovies.title;
+              final overview = popularMovies.overview;
 
               return Column(
                 children: [
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(context, 'detailsPage',
-                        arguments: Arguments(title: title, description: overview)),
+                        arguments: 'movie-insatnce2'
+                    ),
                     child: Container(
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
@@ -108,19 +136,19 @@ class PopularMovies extends StatelessWidget {
                       child: FadeInImage(
                           image: NetworkImage(popularMovies.fullImage),
                           placeholder: const AssetImage(
-                              'assets/images/video-camera.png'),
+                              'assets/gif/loading-blocks.gif'),
                           fit: BoxFit.cover),
                     ),
                   ),
                   Expanded(
                       child: Container(
                     margin: const EdgeInsets.only(right: 20, bottom: 5.0),
-                    width: size.width * 0.25,
+                    width: widget.size.width * 0.25,
                     child: Text(
                       popularMovies.title,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
-                      style: TextStyle(color: color),
+                      style: TextStyle(color: widget.color),
                     ),
                   ))
                 ],

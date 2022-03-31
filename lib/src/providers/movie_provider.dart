@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 import 'package:peliculas_app/src/pages/pages.dart';
 import 'package:http/http.dart' as http;
 import '../models/models.dart';
@@ -9,12 +10,16 @@ class MoviesProvider extends ChangeNotifier {
 
   List<Movie> onDisplaymovies = [];
   List<Movie> mostViewedMovies = [];
-  List<Movie> pMovies = [];
+  List<Movie> popular_movies = [];
+  List<Movie> onRecomendedMovies = [];
 
+  int _popularMovies = 0;
+  
   MoviesProvider() {
     getMovies();
     getMostViewedMoviwes();
     getPopularMovies();
+    getRecomendedMovies();
   }
 
   Future<String> _makeRequest(String undercodepath, [int page = 1]) async {
@@ -41,12 +46,20 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   getPopularMovies() async {
-    final request = await _makeRequest('3/movie/popular');
+    _popularMovies++;
+    final request = await _makeRequest('3/movie/popular', _popularMovies);
     final popularMovies = PopularMoviesResults.fromJson(request);
-    pMovies = popularMovies.results;
+    popular_movies = popularMovies.results;
     notifyListeners();
   }
 
-  //obtener peliculas populares
+  getRecomendedMovies([int lastId = 508947]) async {
+    final request = await _makeRequest('3/movie/$lastId/recommendations');
+    final recomendedMovies = RecomendedMoviesResponse.fromJson(request);
+    onRecomendedMovies = recomendedMovies.results;
+    notifyListeners();
+  }
+
+ //obtener peliculas populares
 
 }

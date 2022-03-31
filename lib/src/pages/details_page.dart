@@ -1,18 +1,32 @@
-import 'package:peliculas_app/src/models/arguments/arguments.dart';
 import 'package:peliculas_app/src/pages/pages.dart';
+import '../models/models.dart';
+import '../providers/providers.dart';
 
 class DetailsPage extends StatelessWidget {
-  const DetailsPage({Key? key}) : super(key: key);
+  const DetailsPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
+
+    final lastId = movie.id;
+    print('----------------');
+    print(movie.title);
+    print(movie.id);
+    print('----------------');
+
+    final movieProvider = Provider.of<MoviesProvider>(context);
 
     return Scaffold(
       backgroundColor: Colors.black,
       body: CustomScrollView(slivers: [
         _SliverAppBar(
           size: size,
+          movie: movie,
         ),
         SliverList(
             delegate: SliverChildListDelegate([
@@ -25,13 +39,20 @@ class DetailsPage extends StatelessWidget {
                     height: size.height,
                     child: Column(
                       children: <Widget>[
-                        _MovieTitle(size: size),
-                        _MovieCategory(size: size),
+                        _MovieTitle(
+                          size: size,
+                          movie: movie,
+                        ),
+                        _MovieCategory(
+                          size: size,
+                          movie: movie,
+                        ),
                         const SizedBox(
                           height: 30,
                         ),
                         _MovieDesription(
                           size: size,
+                          movie: movie,
                         ),
                         Container(
                           margin: const EdgeInsets.only(top: 15),
@@ -42,7 +63,12 @@ class DetailsPage extends StatelessWidget {
                             style: TextStyle(color: Colors.white, fontSize: 25),
                           ),
                         ),
-                        _SimilarMovies(size: size)
+                        SimilarMovies(
+                          size: size,
+                          movies: movieProvider.onRecomendedMovies,
+                          getRecomendedMovies: () =>
+                              movieProvider.getRecomendedMovies(lastId),
+                        )
                       ],
                     ),
                   ),
@@ -56,53 +82,23 @@ class DetailsPage extends StatelessWidget {
   }
 }
 
-class _SimilarMovies extends StatelessWidget {
-  const _SimilarMovies({
-    Key? key,
-    required this.size,
-  }) : super(key: key);
-
-  final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.only(top: 10.0),
-        width: size.width,
-        height: size.height * 0.25,
-        child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 10,
-            itemBuilder: (context, index) => Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                width: size.width * 0.35,
-                clipBehavior: Clip.antiAlias,
-                margin: const EdgeInsets.all(10),
-                child: const FadeInImage(
-                  image: NetworkImage('https://via.placeholder.com/300x400'),
-                  placeholder: AssetImage('assets/gif/loading-colour.gif'),
-                  fit: BoxFit.cover,
-                ))));
-  }
-}
-
 class _MovieDesription extends StatelessWidget {
   const _MovieDesription({
     Key? key,
     required this.size,
+    required this.movie,
   }) : super(key: key);
 
   final Size size;
+  final Movie movie;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: size.width,
-      child: const Text(
-        'Lorem irure aliquip reprehenderit occaecat esse aliqua fugiat officia elit dolor elit dolor aliquip. Duis fugiat labore dolore minim ut sunt do ex irure enim ex ea nostrud excepteur. In amet officia ad pariatur ut incididunt nostrud.',
-        style: TextStyle(color: Colors.white, fontSize: 20),
+      child: Text(
+        movie.overview,
+        style: const TextStyle(color: Colors.white, fontSize: 20),
         overflow: TextOverflow.clip,
         maxLines: 6,
       ),
@@ -114,9 +110,11 @@ class _MovieCategory extends StatelessWidget {
   const _MovieCategory({
     Key? key,
     required this.size,
+    required this.movie,
   }) : super(key: key);
 
   final Size size;
+  final Movie movie;
 
   @override
   Widget build(BuildContext context) {
@@ -165,18 +163,19 @@ class _MovieTitle extends StatelessWidget {
   const _MovieTitle({
     Key? key,
     required this.size,
+    required this.movie,
   }) : super(key: key);
 
   final Size size;
+  final Movie movie;
 
   @override
   Widget build(BuildContext context) {
-    
     return Container(
         color: Colors.black,
         width: size.width,
         height: size.height * 0.06,
-        child: Text('movie.title',
+        child: Text(movie.title,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(fontSize: 30, color: Colors.white)));
   }
@@ -186,9 +185,11 @@ class _SliverAppBar extends StatelessWidget {
   const _SliverAppBar({
     Key? key,
     required this.size,
+    required this.movie,
   }) : super(key: key);
 
   final Size size;
+  final Movie movie;
 
   @override
   Widget build(BuildContext context) {
@@ -197,11 +198,11 @@ class _SliverAppBar extends StatelessWidget {
       pinned: true,
       //title:const  Text('batman'),
       backgroundColor: AppThemes.transparentColor,
-      flexibleSpace: const FlexibleSpaceBar(
+      flexibleSpace: FlexibleSpaceBar(
           background: FadeInImage(
         fit: BoxFit.cover,
-        placeholder: AssetImage('assets/gif/loading-colour.gif'),
-        image: NetworkImage('https://cdn.wallpapersafari.com/63/91/EGjUcK.jpg'),
+        placeholder: const AssetImage('assets/gif/loading-blocks.gif'),
+        image: NetworkImage(movie.fullBackdropPath),
       )),
     );
   }

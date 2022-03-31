@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: AppThemes.lightTheme,
       initialRoute: 'home',
       routes: {
-        'home': (_) => const HomePage(),
+        'home'       : (_) => const HomePage(),
         'detailsPage': (_) => const DetailsPage(),
       },
     );

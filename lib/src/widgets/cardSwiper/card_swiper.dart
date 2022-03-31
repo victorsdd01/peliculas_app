@@ -12,8 +12,8 @@ class CardSwiper extends StatelessWidget {
 
     if (movies.isEmpty) {
       return SizedBox(
-        width: size.width*0.60,
-        height: size.height*0.45,
+        width: size.width * 0.60,
+        height: size.height * 0.45,
         child: const Center(
           child: CircularProgressIndicator.adaptive(),
         ),
@@ -36,8 +36,8 @@ class CardSwiper extends StatelessWidget {
             final movie = movies[index];
 
             return GestureDetector(
-              onTap: () => Navigator.pushNamed(context, 'detailsPage',
-                  arguments: 'movie-instance'),
+              onTap: () => Navigator.pushNamed(
+                  context, 'detailsPage', arguments: movie),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(25.0),
                 child: FadeInImage(

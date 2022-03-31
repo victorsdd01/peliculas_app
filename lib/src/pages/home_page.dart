@@ -24,9 +24,9 @@ class HomePage extends StatelessWidget {
               CardSwiper(movies: moviesProvider.onDisplaymovies,),
               // horizontal slider...
               MovieSlider(
-                popularMovies   : moviesProvider.pMovies, 
-                mostViewedMovies: moviesProvider.mostViewedMovies,
-                
+                popularMovies   : moviesProvider.popular_movies, 
+                mostViewedMovies: moviesProvider.mostViewedMovies, 
+                onNextPage      :()=> moviesProvider.getPopularMovies(),
               ),
             ],
           ),
