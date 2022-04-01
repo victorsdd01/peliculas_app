@@ -29,7 +29,7 @@ class _SimilarMoviesState extends State<SimilarMovies> {
     return Container(
         margin: const EdgeInsets.only(top: 10.0),
         width: widget.size.width,
-        height: widget.size.height * 0.25,
+        height: widget.size.height * 0.30,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: widget.movies.length,
@@ -43,7 +43,7 @@ class _SimilarMoviesState extends State<SimilarMovies> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    width: widget.size.width * 0.35,
+                    width: widget.size.width * 0.40,
                     clipBehavior: Clip.antiAlias,
                     margin: const EdgeInsets.all(10),
                     child: FadeInImage(

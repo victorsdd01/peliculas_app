@@ -187,7 +187,7 @@ class MostViewedMovies extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(context, 'detailsPage',
-                        arguments: mostViewedMovies
+                        arguments: MostViewedMovies
                     ),
                     child: Container(
                       clipBehavior: Clip.antiAlias,
@@ -201,7 +201,7 @@ class MostViewedMovies extends StatelessWidget {
                       child: FadeInImage(
                           image: NetworkImage(MostViewedMovies.fullImage),
                           placeholder: const AssetImage(
-                              'assets/images/video-camera.png'),
+                              'assets/gif/loading-blocks.gif'),
                           fit: BoxFit.cover),
                     ),
                   ),

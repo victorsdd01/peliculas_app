@@ -29,7 +29,6 @@ class CardSwiper extends StatelessWidget {
           autoplay: false,
           autoplayDelay: 3000,
           itemCount: movies.length,
-          //layout: SwiperLayout.DEFAULT,
           itemWidth: size.width * 0.60,
           itemHeight: size.height * 0.45,
           itemBuilder: (context, index) {

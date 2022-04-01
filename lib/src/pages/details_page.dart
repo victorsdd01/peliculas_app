@@ -9,14 +9,15 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final size = MediaQuery.of(context).size;
 
     final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
 
     final lastId = movie.id;
-    
+
     final movieProvider = Provider.of<MoviesProvider>(context);
+
+    final Color color = AppThemes.white;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -52,12 +53,12 @@ class DetailsPage extends StatelessWidget {
                           movie: movie,
                         ),
                         Container(
-                          margin: const EdgeInsets.only(top: 15),
+                          margin: const EdgeInsets.only(top: 10),
                           //color: Colors.blueAccent,
                           width: size.width,
                           child: const Text(
                             'Mas contenido como este',
-                            style: TextStyle(color: Colors.white, fontSize: 25),
+                            style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                         ),
                         SimilarMovies(
@@ -65,7 +66,11 @@ class DetailsPage extends StatelessWidget {
                           movies: movieProvider.onRecomendedMovies,
                           getRecomendedMovies: () =>
                               movieProvider.getRecomendedMovies(lastId),
-                        )
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Expanded(child: MovieActors(size: size,color: color,))
                       ],
                     ),
                   ),
@@ -95,7 +100,7 @@ class _MovieDesription extends StatelessWidget {
       width: size.width,
       child: Text(
         movie.overview,
-        style: const TextStyle(color: Colors.white, fontSize: 20),
+        style: const TextStyle(color: Colors.white, fontSize: 15),
         overflow: TextOverflow.clip,
         maxLines: 6,
       ),
@@ -117,37 +122,37 @@ class _MovieCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: size.width,
-      height: size.height * 0.05,
+      height: size.height * 0.03,
       child: Row(
         children: <Widget>[
           SizedBox(
             width: size.width / 5,
             child: const Text('2HR 10MIN',
-                style: TextStyle(fontSize: 15, color: Colors.white),
+                style: TextStyle(fontSize: 12, color: Colors.white),
                 textAlign: TextAlign.center),
           ),
           SizedBox(
             width: size.width / 5,
             child: const Text('13+',
-                style: TextStyle(fontSize: 15, color: Colors.white),
+                style: TextStyle(fontSize: 12, color: Colors.white),
                 textAlign: TextAlign.center),
           ),
           SizedBox(
             width: size.width / 5,
             child: const Text('2013',
-                style: TextStyle(fontSize: 15, color: Colors.white),
+                style: TextStyle(fontSize: 12, color: Colors.white),
                 textAlign: TextAlign.center),
           ),
           SizedBox(
             width: size.width / 5,
             child: const Text('HD',
-                style: TextStyle(fontSize: 15, color: Colors.white),
+                style: TextStyle(fontSize: 12, color: Colors.white),
                 textAlign: TextAlign.center),
           ),
           SizedBox(
             width: size.width / 5,
             child: const Text('5.1',
-                style: TextStyle(fontSize: 15, color: Colors.white),
+                style: TextStyle(fontSize: 12, color: Colors.white),
                 textAlign: TextAlign.center),
           ),
         ],
@@ -174,7 +179,7 @@ class _MovieTitle extends StatelessWidget {
         height: size.height * 0.06,
         child: Text(movie.title,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 30, color: Colors.white)));
+            style: const TextStyle(fontSize: 25, color: Colors.white)));
   }
 }
 
@@ -191,7 +196,7 @@ class _SliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: size.height * 0.6,
+      expandedHeight: size.height * 0.4,
       pinned: true,
       //title:const  Text('batman'),
       backgroundColor: AppThemes.transparentColor,
