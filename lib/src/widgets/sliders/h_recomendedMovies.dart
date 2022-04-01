@@ -35,19 +35,24 @@ class _SimilarMoviesState extends State<SimilarMovies> {
             itemCount: widget.movies.length,
             itemBuilder: (_, index) {
               final movie = widget.movies[index];
-              return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  width: widget.size.width * 0.35,
-                  clipBehavior: Clip.antiAlias,
-                  margin: const EdgeInsets.all(10),
-                  child: FadeInImage(
-                    image: NetworkImage(movie.fullImage),
-                    placeholder:
-                        const AssetImage('assets/gif/loading-colour.gif'),
-                    fit: BoxFit.cover,
-                  ));
+              return GestureDetector(
+                onTap: ()=>Navigator.pushNamed(context, 'detailsPage',
+                 arguments: movie
+                ),
+                child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    width: widget.size.width * 0.35,
+                    clipBehavior: Clip.antiAlias,
+                    margin: const EdgeInsets.all(10),
+                    child: FadeInImage(
+                      image: NetworkImage(movie.fullImage),
+                      placeholder:
+                          const AssetImage('assets/gif/loading-colour.gif'),
+                      fit: BoxFit.cover,
+                    )),
+              );
             }));
   }
 }

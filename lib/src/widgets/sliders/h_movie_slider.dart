@@ -115,14 +115,12 @@ class _PopularMoviesState extends State<PopularMovies> {
             itemCount: widget.movies.length,
             itemBuilder: (_, int index) {
               final popularMovies = widget.movies[index];
-              final title = popularMovies.title;
-              final overview = popularMovies.overview;
 
               return Column(
                 children: [
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(context, 'detailsPage',
-                        arguments: 'movie-insatnce2'
+                        arguments: popularMovies
                     ),
                     child: Container(
                       clipBehavior: Clip.antiAlias,
@@ -189,7 +187,8 @@ class MostViewedMovies extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(context, 'detailsPage',
-                        arguments: 'movie-instance 2'),
+                        arguments: mostViewedMovies
+                    ),
                     child: Container(
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(

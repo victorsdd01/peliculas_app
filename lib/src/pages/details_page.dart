@@ -9,16 +9,13 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final size = MediaQuery.of(context).size;
 
     final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
 
     final lastId = movie.id;
-    print('----------------');
-    print(movie.title);
-    print(movie.id);
-    print('----------------');
-
+    
     final movieProvider = Provider.of<MoviesProvider>(context);
 
     return Scaffold(
