@@ -1,4 +1,5 @@
 
+
 import 'package:peliculas_app/src/providers/providers.dart';
 import 'src/pages/pages.dart';
 
@@ -14,6 +15,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: ( _ ) => MoviesProvider(),lazy: false,),
+        ChangeNotifierProvider(create: ( _ ) => ActorsProvider(),lazy: false,),
       ],
       child:const MyApp(),
     );

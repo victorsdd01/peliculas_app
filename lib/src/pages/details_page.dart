@@ -16,8 +16,9 @@ class DetailsPage extends StatelessWidget {
     final lastId = movie.id;
 
     final movieProvider = Provider.of<MoviesProvider>(context);
+    final actorsProvider= Provider.of<ActorsProvider>(context);
 
-    final Color color = AppThemes.white;
+    const  Color color = AppThemes.white;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -70,7 +71,14 @@ class DetailsPage extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        Expanded(child: MovieActors(size: size,color: color,))
+                        Expanded(
+                          child: MovieActors(
+                            size: size,
+                            color: color, 
+                            actors: actorsProvider.actors, 
+                            getActors: () => actorsProvider.getActors(lastId),
+                          )
+                        )
                       ],
                     ),
                   ),
