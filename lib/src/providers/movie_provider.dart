@@ -19,7 +19,7 @@ class MoviesProvider extends ChangeNotifier {
     getMovies();
     getMostViewedMoviwes();
     getPopularMovies();
-    getRecomendedMovies();
+    //getRecomendedMovies();
   }
 
   Future<String> _makeRequest(String undercodepath, [int page = 1]) async {
@@ -53,7 +53,8 @@ class MoviesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  getRecomendedMovies([int lastId = 508947]) async {
+  getRecomendedMovies(int lastId) async {
+    
     final request = await _makeRequest('3/movie/$lastId/recommendations');
     final recomendedMovies = RecomendedMoviesResponse.fromJson(request);
     onRecomendedMovies = recomendedMovies.results;

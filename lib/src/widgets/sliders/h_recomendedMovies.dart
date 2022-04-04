@@ -49,7 +49,7 @@ class _SimilarMoviesState extends State<SimilarMovies> {
                     child: FadeInImage(
                       image: NetworkImage(movie.fullImage),
                       placeholder:
-                          const AssetImage('assets/gif/loading-colour.gif'),
+                          const AssetImage('assets/gif/loading-blocks.gif'),
                       fit: BoxFit.cover,
                     )),
               );

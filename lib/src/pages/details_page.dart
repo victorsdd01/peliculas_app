@@ -75,8 +75,10 @@ class DetailsPage extends StatelessWidget {
                           child: MovieActors(
                             size: size,
                             color: color, 
-                            actors: actorsProvider.actors, 
-                            getActors: () => actorsProvider.getActors(lastId),
+                            lastId: lastId,
+                            //actors: actorsProvider.actors, 
+                            //getActors: () => actorsProvider.getActors(lastId),
+                            
                           )
                         )
                       ],

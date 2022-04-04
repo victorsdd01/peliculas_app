@@ -1,3 +1,5 @@
+// ignore_for_file: iterable_contains_unrelated_type
+
 import 'package:peliculas_app/src/models/models.dart';
 import 'package:peliculas_app/src/pages/pages.dart';
 import 'package:peliculas_app/src/providers/providers.dart';
@@ -10,15 +12,15 @@ class ActorsProvider extends ChangeNotifier {
 
   List<Actors> actors = [];
 
-  ActorsProvider();
-
-  getActors(int movieId) async {
+  Future<List<Actors>> getActors(int movieId) async {
+    print('pidiendo la lista de actores..');
+    //if(actors.containsKey(movieId)) return actors[movieId]!;
     final url = Uri.https(_urlBase, '3/movie/$movieId/credits',
         {'api_key': _apiKey, 'language': _language});
 
     final response = await http.get(url);
     final actorsResponse = ActorsResponse.fromJson(response.body);
     actors = actorsResponse.cast;
-    notifyListeners();
+    return actorsResponse.cast;
   }
 }

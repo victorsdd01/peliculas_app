@@ -15,7 +15,9 @@ class HomePage extends StatelessWidget {
             title: const Text('Cartelera'),
             leading: IconButton(
               icon: const Icon(Icons.search),
-              onPressed: () {},
+              onPressed: (){
+                
+              },
             )),
         body: SingleChildScrollView(
           child: Column(

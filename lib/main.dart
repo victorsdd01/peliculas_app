@@ -1,5 +1,3 @@
-
-
 import 'package:peliculas_app/src/providers/providers.dart';
 import 'src/pages/pages.dart';
 
