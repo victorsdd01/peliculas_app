@@ -6,32 +6,34 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final moviesProvider = Provider.of<MoviesProvider>(context);
-  
+
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 32, 32, 32),
         appBar: AppBar(
             title: const Text('Cartelera'),
             leading: IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: (){
-                
-              },
-            )),
+                icon: const Icon(Icons.search),
+                onPressed: () => showSearch(context: context, delegate: MovieSearchDelegate())
+            )
+        ),
         body: SingleChildScrollView(
           child: Column(
-            children:  <Widget>[
+            children: <Widget>[
               // vertical Swiper...
-              CardSwiper(movies: moviesProvider.onDisplaymovies,),
+              CardSwiper(
+                movies: moviesProvider.onDisplaymovies,
+              ),
               // horizontal slider...
               MovieSlider(
-                popularMovies   : moviesProvider.popular_movies, 
-                mostViewedMovies: moviesProvider.mostViewedMovies, 
-                onNextPage      :()=> moviesProvider.getPopularMovies(),
+                popularMovies: moviesProvider.popular_movies,
+                mostViewedMovies: moviesProvider.mostViewedMovies,
+                onNextPage: () => moviesProvider.getPopularMovies(),
               ),
             ],
           ),
         ));
   }
+
+  
 }

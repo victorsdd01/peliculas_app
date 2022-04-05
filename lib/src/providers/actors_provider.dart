@@ -13,7 +13,6 @@ class ActorsProvider extends ChangeNotifier {
   List<Actors> actors = [];
 
   Future<List<Actors>> getActors(int movieId) async {
-    print('pidiendo la lista de actores..');
     //if(actors.containsKey(movieId)) return actors[movieId]!;
     final url = Uri.https(_urlBase, '3/movie/$movieId/credits',
         {'api_key': _apiKey, 'language': _language});

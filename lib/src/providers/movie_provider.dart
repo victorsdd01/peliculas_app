@@ -12,9 +12,10 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> mostViewedMovies = [];
   List<Movie> popular_movies = [];
   List<Movie> onRecomendedMovies = [];
+  List<Movie> movieSearch = [];
 
   int _popularMovies = 0;
-  
+
   MoviesProvider() {
     getMovies();
     getMostViewedMoviwes();
@@ -54,13 +55,25 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   getRecomendedMovies(int lastId) async {
-    
     final request = await _makeRequest('3/movie/$lastId/recommendations');
     final recomendedMovies = RecomendedMoviesResponse.fromJson(request);
     onRecomendedMovies = recomendedMovies.results;
     notifyListeners();
   }
 
- //obtener peliculas populares
+  Future<List<Movie>> searchMovie(String movieName) async {
+    var url = Uri.https(urlBase, '3/search/movie', {
+      'api_key': apiKey,
+      'language': language,
+      'query': movieName,
+      'page': '1',
+    });
+    final response = await http.get(url);
+    final searcResult = SearchMovieResponse.fromJson(response.body);
+    movieSearch = searcResult.results;
+    return movieSearch;
+  }
+
+  //obtener peliculas populares
 
 }

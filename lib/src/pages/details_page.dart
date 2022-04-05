@@ -16,8 +16,7 @@ class DetailsPage extends StatelessWidget {
     final lastId = movie.id;
 
     final movieProvider = Provider.of<MoviesProvider>(context);
-    final actorsProvider= Provider.of<ActorsProvider>(context);
-
+   
     const  Color color = AppThemes.white;
 
     return Scaffold(
