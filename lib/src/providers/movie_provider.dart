@@ -1,6 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:async';
+
 import 'package:peliculas_app/src/pages/pages.dart';
 import 'package:http/http.dart' as http;
+import '../helpers/debouncer.dart';
 import '../models/models.dart';
 
 class MoviesProvider extends ChangeNotifier {
@@ -16,6 +19,15 @@ class MoviesProvider extends ChangeNotifier {
 
   int _popularMovies = 0;
 
+  final debouncer = Debouncer(
+    duration: const Duration(milliseconds: 500),
+  );
+
+  final StreamController<List<Movie>> _suggestionStreamController =
+      StreamController.broadcast();
+  Stream<List<Movie>> get suggestionStream =>
+      _suggestionStreamController.stream;
+
   MoviesProvider() {
     getMovies();
     getMostViewedMoviwes();
@@ -24,7 +36,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   Future<String> _makeRequest(String undercodepath, [int page = 1]) async {
-    var url = Uri.https(urlBase, undercodepath,
+    final url = Uri.https(urlBase, undercodepath,
         {'api_key': apiKey, 'language': language, 'page': '$page'});
     final response = await http.get(url);
     return response.body;
@@ -62,7 +74,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   Future<List<Movie>> searchMovie(String movieName) async {
-    var url = Uri.https(urlBase, '3/search/movie', {
+    final url = Uri.https(urlBase, '3/search/movie', {
       'api_key': apiKey,
       'language': language,
       'query': movieName,
@@ -72,6 +84,20 @@ class MoviesProvider extends ChangeNotifier {
     final searcResult = SearchMovieResponse.fromJson(response.body);
     movieSearch = searcResult.results;
     return movieSearch;
+  }
+
+  void getSuggestionByQuery(String searchTerm) {
+    debouncer.value = '';
+    debouncer.onValue = (value) async {
+       final result = await searchMovie(value);
+       _suggestionStreamController.add(result);
+      print(value);
+    };
+
+    final timer = Timer.periodic(Duration(milliseconds: 300), (_) {
+      debouncer.value = searchTerm;
+    });
+    Future.delayed(Duration(milliseconds: 301)).then((_) => timer.cancel());
   }
 
   //obtener peliculas populares

@@ -10,23 +10,20 @@ class MovieSearchDelegate extends SearchDelegate {
   List<Widget> buildActions(BuildContext context) {
     return [
       if (query.characters.isNotEmpty)
-        cancelButton(query)
+        IconButton(
+            icon: const Icon(Icons.clear),
+            onPressed: () {
+              final lastSearch = query;
+              query = lastSearch;
+            })
       else
-        searchButton(query)
+        Center(child: searchButton())
     ];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
-    return Center(
-      child: IconButton(
-        icon: const Icon(
-          Icons.keyboard_arrow_left,
-          size: 30.0,
-        ),
-        onPressed: () => Navigator.pop(context),
-      ),
-    );
+    return null;
   }
 
   @override
@@ -40,36 +37,100 @@ class MovieSearchDelegate extends SearchDelegate {
         future: searchMovieProvider.searchMovie(movieName),
         builder: (_, AsyncSnapshot<List<Movie>> snapShot) {
           if (!snapShot.hasData) {
-            return const Center(child: Text('No se encontraron resultados'));
+            return const Center(child: CircularProgressIndicator.adaptive());
           } else {
-            return _GridResults(size: size, searchedMovies: searchedMovies,);
+            return _GridResults(
+              size: size,
+              searchedMovies: searchedMovies,
+            );
           }
         });
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Text('build suggestions: $query');
+    final size = MediaQuery.of(context).size;
+    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+    moviesProvider.getSuggestionByQuery(query);
+    final popularMovies = moviesProvider.popular_movies;
+
+    return StreamBuilder(
+        stream: moviesProvider.suggestionStream,
+        builder: (_, AsyncSnapshot<List<Movie>> snapShot) {
+          //if (!snapShot.hasData) return Container();
+          // return Center(child: CircularProgressIndicator.adaptive());
+          return _SearchMovie(popularMovies: popularMovies, size: size);
+        });
   }
 
-  Center cancelButton(query) {
-    return Center(
-      child: IconButton(
-        icon: const Icon(Icons.cancel),
-        onPressed: () {},
-      ),
-    );
-  }
-
-  Center searchButton(query) {
+  Center searchButton() {
     return const Center(child: Icon(Icons.search));
+  }
+}
+
+class _SearchMovie extends StatelessWidget {
+  const _SearchMovie({
+    Key? key,
+    required this.popularMovies,
+    required this.size,
+  }) : super(key: key);
+
+  final List<Movie> popularMovies;
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+        separatorBuilder: (_, __) => const Divider(
+              color: AppThemes.primary,
+              indent: 25,
+              endIndent: 25,
+            ),
+        itemCount: popularMovies.length,
+        itemBuilder: (_, index) {
+          final movies = popularMovies[index];
+
+          return GestureDetector(
+            onTap: () =>
+                Navigator.pushNamed(context, 'detailsPage', arguments: movies),
+            child: Container(
+                margin: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(5.0),
+                width: double.infinity,
+                child: Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: size.width * 0.3,
+                      height: size.height * 0.2,
+                      child: FadeInImage(
+                        fit: BoxFit.cover,
+                        placeholder:
+                            const AssetImage('assets/gif/loading-blocks.gif'),
+                        image: NetworkImage(movies.fullImage),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 25.0),
+                      width: size.width * 0.50,
+                      height: size.height * 0.10,
+                      child: Text(
+                        movies.originalTitle,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )
+                  ],
+                )),
+          );
+        });
   }
 }
 
 class _GridResults extends StatelessWidget {
   const _GridResults({
     Key? key,
-    required this.size, 
+    required this.size,
     required this.searchedMovies,
   }) : super(key: key);
 
@@ -79,38 +140,23 @@ class _GridResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: searchedMovies.length,
+        itemCount: searchedMovies.length,
         gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (_, index) {
           final movies = searchedMovies[index];
           return GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'detailsPage',arguments:movies),
+            onTap: () =>
+                Navigator.pushNamed(context, 'detailsPage', arguments: movies),
             child: Container(
-                margin: const EdgeInsets.all(5.0),
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      width: double.infinity,
-                      height: size.height * 0.20,
-                      child: FadeInImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(movies.fullImage),
-                        placeholder: const AssetImage('assets/gif/loading-blocks.gif'),
-                      ),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 20,
-                      child:  Text(
-                        movies.originalTitle,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    )
-                  ],
-                ),
+              margin: const EdgeInsets.all(5.0),
+              height: size.height * 0.25,
+              child: FadeInImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(movies.fullImage),
+                placeholder: const AssetImage('assets/gif/loading-blocks.gif'),
               ),
+            ),
           );
         });
   }
